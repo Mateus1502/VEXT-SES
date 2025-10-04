@@ -1,15 +1,18 @@
 package Entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+
 
 @Entity
 public class Atleta {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idAtleta;
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
@@ -18,8 +21,8 @@ public class Atleta {
     @Column(nullable = false)
     private Integer idade;
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
+    @Column(nullable = false,unique = true)
     private String cpf;
     private double altura;
     private double peso;
@@ -28,29 +31,27 @@ public class Atleta {
     private int enderecoNumero;
     @Column(columnDefinition = "tinyint(1) default 1")
     private boolean status;
-    private Date dataCadastro;
-    /*@ManyToOne
-    @JoinColumn(name = "id_esporte", referencedColumnName = "id")
+    private LocalDate dataCadastro;
+    @ManyToOne
+    @JoinColumn(name = "id_esporte", referencedColumnName = "idEsporte")
     private Esporte esporte;
     @ManyToOne
-    @JoinColumn(name = "id_equipe", referencedColumnName = "id")
+    @JoinColumn(name = "id_equipe", referencedColumnName = "idEquipe")
     private Equipe equipe;
-     @OneToMany(mappedBy = "atleta", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "atleta")
     private List<Responsavel> responsaveis = new ArrayList<>();
-     */
     private String categoria;
     private String genero;
 
     public Atleta() {}
 
-    public Atleta(Long id, String categoria, String nome, String sobrenome, String posicao, Integer idade, Date dataNascimento, String cpf, double altura, double peso, String enderecoRua, String enderecoBairro, int enderecoNumero, boolean status, Date dataCadastro, String genero) {
-        this.id = id;
-        this.categoria = categoria;
+    public Atleta(List <Responsavel> responsaveis ,String nome, String sobrenome, String posicao, LocalDate dataNascimento, Integer idade, String cpf, double altura, double peso, String enderecoRua, String enderecoBairro, int enderecoNumero, boolean status, LocalDate dataCadastro, Esporte esporte, Equipe equipe, String genero, String categoria) {
+        this.responsaveis = (responsaveis != null) ? new ArrayList<>(responsaveis) : new ArrayList<>();
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.posicao = posicao;
-        this.idade = idade;
         this.dataNascimento = dataNascimento;
+        this.idade = idade;
         this.cpf = cpf;
         this.altura = altura;
         this.peso = peso;
@@ -59,23 +60,10 @@ public class Atleta {
         this.enderecoNumero = enderecoNumero;
         this.status = status;
         this.dataCadastro = dataCadastro;
+        this.esporte = esporte;
+        this.equipe = equipe;
         this.genero = genero;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.categoria = categoria;
     }
 
     public String getSobrenome() {
@@ -102,11 +90,11 @@ public class Atleta {
         this.idade = idade;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -166,11 +154,11 @@ public class Atleta {
         this.status = status;
     }
 
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -188,5 +176,45 @@ public class Atleta {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public Long getIdAtleta() {
+        return idAtleta;
+    }
+
+    public void setIdAtleta(Long idAtleta) {
+        this.idAtleta = idAtleta;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+    public Esporte getEsporte() {
+        return esporte;
+    }
+
+    public void setEsporte(Esporte esporte) {
+        this.esporte = esporte;
+    }
+
+    public List<Responsavel> getResponsaveis() {
+        return responsaveis;
+    }
+
+    public void setResponsaveis(List<Responsavel> responsaveis) {
+        this.responsaveis = responsaveis;
     }
 }
