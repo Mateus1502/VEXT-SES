@@ -19,11 +19,33 @@ public class AtletaController {
     }
 
     /// Endpoint para criar um atleta, aqui será exposto para o front end
+    /// SOMENTE CRIA ATLETA
     @PostMapping
     public Atleta createAtleta(@RequestBody Atleta atleta){
+        atleta.setIdAtleta(null);
         atletaRepository.save(atleta);
         return atleta;
     }
+    /// ATUALIZA ATLETA
+    @PutMapping("/{id}")
+    public Atleta updateAtleta(@PathVariable Long id , @RequestBody Atleta atleta){
+        return atletaRepository.findById(id).map(existing -> {
+            existing.setNome(atleta.getNome());
+            existing.setSobrenome(atleta.getSobrenome());
+            existing.setCategoria(atleta.getCategoria());
+            existing.setDataNascimento(atleta.getDataNascimento());
+            existing.setEquipe(atleta.getEquipe());
+            existing.setEnderecoBairro(atleta.getEnderecoBairro());
+            existing.setEnderecoRua(atleta.getEnderecoRua());
+            existing.setEnderecoNumero(atleta.getEnderecoNumero());
+            existing.setAltura(atleta.getAltura());
+            existing.setPeso(atleta.getPeso());
+            existing.setCpf(atleta.getCpf());
+            return atletaRepository.save(existing);
+        }).orElse(null);
+    }
+
+
     /// Endpoint para visualizar todos os atletas do banco
     @GetMapping
     public List<Atleta> getAllAtletas(){
