@@ -1,4 +1,4 @@
-package Entity;
+package SES.SES_Araquari.Entity;
 
 import jakarta.persistence.*;
 

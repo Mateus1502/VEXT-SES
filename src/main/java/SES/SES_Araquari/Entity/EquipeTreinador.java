@@ -1,4 +1,4 @@
-package Entity;
+package SES.SES_Araquari.Entity;
 
 import jakarta.persistence.*;
 
@@ -12,7 +12,7 @@ public class EquipeTreinador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTreinador;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idEquipe", referencedColumnName = "idEquipe")
+    @JoinColumn(name = "idEquipe")
     private Equipe equipe;
     private String nome;
     private String sobrenome;

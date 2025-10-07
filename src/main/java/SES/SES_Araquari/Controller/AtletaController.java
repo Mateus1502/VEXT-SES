@@ -1,9 +1,9 @@
-package Controller;
+package SES.SES_Araquari.Controller;
 
 /// Imports necessários para o controller
 
-import Entity.Atleta;
-import Repoistory.AtletaRepository;
+import SES.SES_Araquari.Entity.Atleta;
+import SES.SES_Araquari.Repository.AtletaRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

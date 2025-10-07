@@ -1,6 +1,6 @@
-package Repoistory;
+package SES.SES_Araquari.Repository;
 
-import Entity.Equipe;
+import SES.SES_Araquari.Entity.Equipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,8 @@
-package Controller;
+package SES.SES_Araquari.Controller;
 
-import Entity.EquipeTreinador;
-import Repoistory.EquipeTreinadorRepository;
+import SES.SES_Araquari.Entity.EquipeTreinador;
+import SES.SES_Araquari.Repository.EquipeTreinadorRepository;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/equipeTreinador")

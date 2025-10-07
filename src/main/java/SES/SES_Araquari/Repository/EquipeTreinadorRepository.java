@@ -1,6 +1,6 @@
-package Repoistory;
+package SES.SES_Araquari.Repository;
 
-import Entity.EquipeTreinador;
+import SES.SES_Araquari.Entity.EquipeTreinador;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
