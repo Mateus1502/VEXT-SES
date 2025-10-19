@@ -19,8 +19,19 @@ public class EquipeController {
     /// Create
     @PostMapping
     public Equipe criarEquipe(@RequestBody Equipe equipe){
+        equipe.setIdEquipe(null);
         equipeRepository.save(equipe);
         return equipe;
+    }
+    @PutMapping("/atualizaequipe")
+    public Equipe atualizaEquipe(@PathVariable Long id,@RequestBody Equipe equipe){
+        return equipeRepository.findById(id).map(existing -> {
+            existing.setNome(equipe.getNome());
+            existing.setAnoFundacao(equipe.getAnoFundacao());
+            existing.setStatus(equipe.isStatus());
+            existing.setEsporte(equipe.getEsporte());
+            return equipeRepository.save(existing);
+        }).orElse(null);
     }
 
     // 1. Buscar todas as equipes (GET /equipe)
@@ -35,6 +46,12 @@ public class EquipeController {
     @GetMapping("/buscar")
     public List<Equipe> findByNome(@RequestParam String nome) {
         return equipeRepository.findByNome(nome);
+    }
+
+    /// deleta equipe pela id
+    @DeleteMapping("/deletarequipe")
+    public void deleteEquipe(@RequestParam Long id){
+        equipeRepository.deleteById(id);
     }
 
 

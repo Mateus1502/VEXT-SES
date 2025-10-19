@@ -10,4 +10,6 @@ import java.util.List;
 public interface AtletaRepository extends JpaRepository<Atleta, Long> {
     List<Atleta>findAtletaByNome(String nome);
     Atleta findAtletaByCpf(String cpf);
+
+    void deleteByCpf(String cpf);
 }

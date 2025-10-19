@@ -23,8 +23,7 @@ public class AtletaController {
     @PostMapping
     public Atleta createAtleta(@RequestBody Atleta atleta){
         atleta.setIdAtleta(null);
-        atletaRepository.save(atleta);
-        return atleta;
+        return atletaRepository.save(atleta);
     }
     /// ATUALIZA ATLETA
     @PutMapping("/{id}")
@@ -57,8 +56,13 @@ public class AtletaController {
         return atletaRepository.findAtletaByNome(nome);
     }
 
+    /// Buscar atleta por cpf
     @GetMapping("/buscarcpf")
     public Atleta getAtletaByCpf(@RequestParam String cpf){
         return atletaRepository.findAtletaByCpf(cpf);
+    }
+    @DeleteMapping("/deletaratleta")
+    public void deleteAtleta(@RequestParam String cpf){
+        atletaRepository.deleteByCpf(cpf);
     }
 }
