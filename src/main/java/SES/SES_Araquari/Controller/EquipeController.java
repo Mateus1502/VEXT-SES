@@ -23,7 +23,7 @@ public class EquipeController {
         equipeRepository.save(equipe);
         return equipe;
     }
-    @PutMapping("/atualizaequipe")
+    @PutMapping("/atualizaequipe/{id}")
     public Equipe atualizaEquipe(@PathVariable Long id,@RequestBody Equipe equipe){
         return equipeRepository.findById(id).map(existing -> {
             existing.setNome(equipe.getNome());
