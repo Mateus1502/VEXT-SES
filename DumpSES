@@ -1,0 +1,237 @@
+-- MySQL dump 10.13  Distrib 8.0.43, for Linux (x86_64)
+--
+-- Host: localhost    Database: SES_Araquari
+-- ------------------------------------------------------
+-- Server version	8.0.43-0ubuntu0.22.04.2
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `atleta`
+--
+
+DROP TABLE IF EXISTS `atleta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `atleta` (
+  `id_atleta` bigint NOT NULL AUTO_INCREMENT,
+  `altura` double NOT NULL,
+  `categoria` varchar(255) DEFAULT NULL,
+  `cpf` varchar(255) NOT NULL,
+  `data_cadastro` date DEFAULT NULL,
+  `data_nascimento` date NOT NULL,
+  `endereco_bairro` varchar(255) DEFAULT NULL,
+  `endereco_numero` int NOT NULL,
+  `endereco_rua` varchar(255) DEFAULT NULL,
+  `genero` varchar(255) DEFAULT NULL,
+  `idade` int NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `peso` double NOT NULL,
+  `posicao` varchar(255) DEFAULT NULL,
+  `sobrenome` varchar(255) NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `id_equipe` bigint DEFAULT NULL,
+  `id_esporte` bigint DEFAULT NULL,
+  PRIMARY KEY (`id_atleta`),
+  UNIQUE KEY `UK1o8agxjk1d62nporewtfaonnu` (`cpf`),
+  KEY `FK3fikgoasaeath63qe3rse5qc1` (`id_equipe`),
+  KEY `FKkwflrp23hutxtvcvdwweecyjx` (`id_esporte`),
+  CONSTRAINT `FK3fikgoasaeath63qe3rse5qc1` FOREIGN KEY (`id_equipe`) REFERENCES `equipe` (`id_equipe`),
+  CONSTRAINT `FKkwflrp23hutxtvcvdwweecyjx` FOREIGN KEY (`id_esporte`) REFERENCES `esporte` (`id_esporte`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `atleta`
+--
+
+LOCK TABLES `atleta` WRITE;
+/*!40000 ALTER TABLE `atleta` DISABLE KEYS */;
+INSERT INTO `atleta` VALUES (5,0,NULL,'12345678901','2025-10-27','2002-05-10',NULL,0,NULL,NULL,25,'João',0,NULL,'Silva',0,NULL,NULL);
+/*!40000 ALTER TABLE `atleta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `equipe`
+--
+
+DROP TABLE IF EXISTS `equipe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `equipe` (
+  `id_equipe` bigint NOT NULL AUTO_INCREMENT,
+  `ano_fundacao` date DEFAULT NULL,
+  `nome` varchar(255) NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `id_esporte` bigint DEFAULT NULL,
+  PRIMARY KEY (`id_equipe`),
+  KEY `FK2mythteqoje1lmxi8w2s465p6` (`id_esporte`),
+  CONSTRAINT `FK2mythteqoje1lmxi8w2s465p6` FOREIGN KEY (`id_esporte`) REFERENCES `esporte` (`id_esporte`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipe`
+--
+
+LOCK TABLES `equipe` WRITE;
+/*!40000 ALTER TABLE `equipe` DISABLE KEYS */;
+INSERT INTO `equipe` VALUES (1,NULL,'Futebol',0,NULL);
+/*!40000 ALTER TABLE `equipe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `equipe_treinador`
+--
+
+DROP TABLE IF EXISTS `equipe_treinador`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `equipe_treinador` (
+  `id_treinador` bigint NOT NULL AUTO_INCREMENT,
+  `cpf` varchar(255) NOT NULL,
+  `data_cadastro` date DEFAULT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `funcao` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `sexo` varchar(255) DEFAULT NULL,
+  `sobrenome` varchar(255) DEFAULT NULL,
+  `telefone` varchar(255) DEFAULT NULL,
+  `id_equipe` bigint DEFAULT NULL,
+  PRIMARY KEY (`id_treinador`),
+  UNIQUE KEY `UK77twufsmc01w6h4fy1q0cdlcp` (`cpf`),
+  UNIQUE KEY `UK9v425x9ynj3xvhbtt9ck2ay6k` (`id_equipe`),
+  CONSTRAINT `FKq6styx7fd5c6hqe3asj9gkit3` FOREIGN KEY (`id_equipe`) REFERENCES `equipe` (`id_equipe`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipe_treinador`
+--
+
+LOCK TABLES `equipe_treinador` WRITE;
+/*!40000 ALTER TABLE `equipe_treinador` DISABLE KEYS */;
+/*!40000 ALTER TABLE `equipe_treinador` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `esporte`
+--
+
+DROP TABLE IF EXISTS `esporte`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `esporte` (
+  `id_esporte` bigint NOT NULL AUTO_INCREMENT,
+  `data_cadastro` date DEFAULT NULL,
+  `nome_esporte` varchar(255) NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `tipo` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_esporte`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `esporte`
+--
+
+LOCK TABLES `esporte` WRITE;
+/*!40000 ALTER TABLE `esporte` DISABLE KEYS */;
+INSERT INTO `esporte` VALUES (1,'2020-05-30','Futebol',1,'Coletivo');
+/*!40000 ALTER TABLE `esporte` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inscricao`
+--
+
+DROP TABLE IF EXISTS `inscricao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inscricao` (
+  `id_inscricao` bigint NOT NULL AUTO_INCREMENT,
+  `data_competicao` date NOT NULL,
+  `data_inscriao` date NOT NULL,
+  `nome_competicao` varchar(255) NOT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `id_atleta` bigint DEFAULT NULL,
+  `id_equipe` bigint DEFAULT NULL,
+  `id_treinador` bigint DEFAULT NULL,
+  `id_esporte` bigint DEFAULT NULL,
+  PRIMARY KEY (`id_inscricao`),
+  KEY `FKd294yd3rpwke6iaphofsmrbj3` (`id_atleta`),
+  KEY `FK5698gwu1c23bugda6lwanwaq5` (`id_equipe`),
+  KEY `FK55elbjrgf807lyxbstis3vl7g` (`id_treinador`),
+  KEY `FKpqqtdcnh0qvkladum4hvfqa1r` (`id_esporte`),
+  CONSTRAINT `FK55elbjrgf807lyxbstis3vl7g` FOREIGN KEY (`id_treinador`) REFERENCES `equipe_treinador` (`id_treinador`),
+  CONSTRAINT `FK5698gwu1c23bugda6lwanwaq5` FOREIGN KEY (`id_equipe`) REFERENCES `equipe` (`id_equipe`),
+  CONSTRAINT `FKd294yd3rpwke6iaphofsmrbj3` FOREIGN KEY (`id_atleta`) REFERENCES `atleta` (`id_atleta`),
+  CONSTRAINT `FKpqqtdcnh0qvkladum4hvfqa1r` FOREIGN KEY (`id_esporte`) REFERENCES `esporte` (`id_esporte`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscricao`
+--
+
+LOCK TABLES `inscricao` WRITE;
+/*!40000 ALTER TABLE `inscricao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inscricao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `responsavel`
+--
+
+DROP TABLE IF EXISTS `responsavel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `responsavel` (
+  `id_responsavel` bigint NOT NULL AUTO_INCREMENT,
+  `bairro` varchar(255) DEFAULT NULL,
+  `complemento` varchar(255) DEFAULT NULL,
+  `cpf` varchar(255) NOT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `grau_de_parentesco` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `numero` int NOT NULL,
+  `sobrenome` varchar(255) DEFAULT NULL,
+  `telefone` varchar(255) DEFAULT NULL,
+  `id_atleta` bigint DEFAULT NULL,
+  PRIMARY KEY (`id_responsavel`),
+  UNIQUE KEY `UK19crnd5p78y9x4iifm56shoah` (`cpf`),
+  KEY `FKdke8o3kvwb0q0455naxvuwsc` (`id_atleta`),
+  CONSTRAINT `FKdke8o3kvwb0q0455naxvuwsc` FOREIGN KEY (`id_atleta`) REFERENCES `atleta` (`id_atleta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `responsavel`
+--
+
+LOCK TABLES `responsavel` WRITE;
+/*!40000 ALTER TABLE `responsavel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `responsavel` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-11-15  9:43:29
